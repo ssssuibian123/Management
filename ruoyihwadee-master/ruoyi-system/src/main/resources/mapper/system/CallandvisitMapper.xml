@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CallandvisitMapper">
+    
+    <resultMap type="Callandvisit" id="CallandvisitResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="position"    column="position"    />
+        <result property="customerRequire"    column="customerRequire"    />
+        <result property="requireTime"    column="requireTime"    />
+        <result property="content"    column="content"    />
+        <result property="staff"    column="staff"    />
+    </resultMap>
+
+    <sql id="selectCallandvisitVo">
+        select id, name, phone, position, customerRequire, requireTime, content, staff from callandvisit
+    </sql>
+
+    <select id="selectCallandvisitList" parameterType="Callandvisit" resultMap="CallandvisitResult">
+        <include refid="selectCallandvisitVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="position != null  and position != ''"> and position = #{position}</if>
+            <if test="customerRequire != null  and customerRequire != ''"> and customerRequire = #{customerRequire}</if>
+            <if test="requireTime != null "> and requireTime = #{requireTime}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="staff != null  and staff != ''"> and staff = #{staff}</if>
+        </where>
+    </select>
+    
+    <select id="selectCallandvisitById" parameterType="Integer" resultMap="CallandvisitResult">
+        <include refid="selectCallandvisitVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCallandvisit" parameterType="Callandvisit">
+        insert into callandvisit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="position != null">position,</if>
+            <if test="customerRequire != null">customerRequire,</if>
+            <if test="requireTime != null">requireTime,</if>
+            <if test="content != null">content,</if>
+            <if test="staff != null">staff,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="position != null">#{position},</if>
+            <if test="customerRequire != null">#{customerRequire},</if>
+            <if test="requireTime != null">#{requireTime},</if>
+            <if test="content != null">#{content},</if>
+            <if test="staff != null">#{staff},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCallandvisit" parameterType="Callandvisit">
+        update callandvisit
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="customerRequire != null">customerRequire = #{customerRequire},</if>
+            <if test="requireTime != null">requireTime = #{requireTime},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="staff != null">staff = #{staff},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCallandvisitById" parameterType="Integer">
+        delete from callandvisit where id = #{id}
+    </delete>
+
+    <delete id="deleteCallandvisitByIds" parameterType="String">
+        delete from callandvisit where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

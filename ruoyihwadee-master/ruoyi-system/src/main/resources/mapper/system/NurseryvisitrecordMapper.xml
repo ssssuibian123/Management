@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.NurseryvisitrecordMapper">
+    
+    <resultMap type="Nurseryvisitrecord" id="NurseryvisitrecordResult">
+        <result property="id"    column="id"    />
+        <result property="date"    column="date"    />
+        <result property="contents"    column="contents"    />
+    </resultMap>
+
+    <sql id="selectNurseryvisitrecordVo">
+        select id, date, contents from nurseryvisitrecord
+    </sql>
+
+    <select id="selectNurseryvisitrecordList" parameterType="Nurseryvisitrecord" resultMap="NurseryvisitrecordResult">
+        <include refid="selectNurseryvisitrecordVo"/>
+        <where>  
+            <if test="date != null "> and date = #{date}</if>
+            <if test="contents != null  and contents != ''"> and contents = #{contents}</if>
+        </where>
+    </select>
+    
+    <select id="selectNurseryvisitrecordById" parameterType="Long" resultMap="NurseryvisitrecordResult">
+        <include refid="selectNurseryvisitrecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNurseryvisitrecord" parameterType="Nurseryvisitrecord">
+        insert into nurseryvisitrecord
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="date != null">date,</if>
+            <if test="contents != null">contents,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="date != null">#{date},</if>
+            <if test="contents != null">#{contents},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNurseryvisitrecord" parameterType="Nurseryvisitrecord">
+        update nurseryvisitrecord
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="date != null">date = #{date},</if>
+            <if test="contents != null">contents = #{contents},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNurseryvisitrecordById" parameterType="Long">
+        delete from nurseryvisitrecord where id = #{id}
+    </delete>
+
+    <delete id="deleteNurseryvisitrecordByIds" parameterType="String">
+        delete from nurseryvisitrecord where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PostmaintenancecustomersMapper">
+    
+    <resultMap type="Postmaintenancecustomers" id="PostmaintenancecustomersResult">
+        <result property="id"    column="id"    />
+        <result property="customerName"    column="customerName"    />
+        <result property="customerComeFrom"    column="customerComeFrom"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="date"    column="date"    />
+        <result property="CustomerRequire"    column="CustomerRequire"    />
+        <result property="level"    column="level"    />
+        <result property="basicInformation"    column="basicInformation"    />
+        <result property="counterman"    column="counterman"    />
+        <result property="nursery"    column="nursery"    />
+    </resultMap>
+
+    <sql id="selectPostmaintenancecustomersVo">
+        select id, customerName, customerComeFrom, phone, address, date, CustomerRequire, level, basicInformation, counterman, nursery from postmaintenancecustomers
+    </sql>
+
+    <select id="selectPostmaintenancecustomersList" parameterType="Postmaintenancecustomers" resultMap="PostmaintenancecustomersResult">
+        <include refid="selectPostmaintenancecustomersVo"/>
+        <where>  
+            <if test="customerName != null  and customerName != ''"> and customerName like concat('%', #{customerName}, '%')</if>
+            <if test="customerComeFrom != null  and customerComeFrom != ''"> and customerComeFrom = #{customerComeFrom}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="CustomerRequire != null  and CustomerRequire != ''"> and CustomerRequire = #{CustomerRequire}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="basicInformation != null  and basicInformation != ''"> and basicInformation = #{basicInformation}</if>
+            <if test="counterman != null  and counterman != ''"> and counterman = #{counterman}</if>
+            <if test="nursery != null  and nursery != ''"> and nursery = #{nursery}</if>
+        </where>
+    </select>
+    
+    <select id="selectPostmaintenancecustomersById" parameterType="Integer" resultMap="PostmaintenancecustomersResult">
+        <include refid="selectPostmaintenancecustomersVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPostmaintenancecustomers" parameterType="Postmaintenancecustomers">
+        insert into postmaintenancecustomers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="customerName != null">customerName,</if>
+            <if test="customerComeFrom != null">customerComeFrom,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="date != null">date,</if>
+            <if test="CustomerRequire != null">CustomerRequire,</if>
+            <if test="level != null">level,</if>
+            <if test="basicInformation != null">basicInformation,</if>
+            <if test="counterman != null">counterman,</if>
+            <if test="nursery != null">nursery,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="customerComeFrom != null">#{customerComeFrom},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="address != null">#{address},</if>
+            <if test="date != null">#{date},</if>
+            <if test="CustomerRequire != null">#{CustomerRequire},</if>
+            <if test="level != null">#{level},</if>
+            <if test="basicInformation != null">#{basicInformation},</if>
+            <if test="counterman != null">#{counterman},</if>
+            <if test="nursery != null">#{nursery},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePostmaintenancecustomers" parameterType="Postmaintenancecustomers">
+        update postmaintenancecustomers
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null">customerName = #{customerName},</if>
+            <if test="customerComeFrom != null">customerComeFrom = #{customerComeFrom},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="CustomerRequire != null">CustomerRequire = #{CustomerRequire},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="basicInformation != null">basicInformation = #{basicInformation},</if>
+            <if test="counterman != null">counterman = #{counterman},</if>
+            <if test="nursery != null">nursery = #{nursery},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePostmaintenancecustomersById" parameterType="Integer">
+        delete from postmaintenancecustomers where id = #{id}
+    </delete>
+
+    <delete id="deletePostmaintenancecustomersByIds" parameterType="String">
+        delete from postmaintenancecustomers where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.outboardingMapper">
+    
+    <resultMap type="outboarding" id="outboardingResult">
+        <result property="onboardingId"    column="Onboarding_id"    />
+        <result property="onboardingName"    column="Onboarding_name"    />
+        <result property="onboardingPicture"    column="Onboarding_picture"    />
+        <result property="date"    column="date"    />
+        <result property="onboardingPosition"    column="Onboarding_position"    />
+        <result property="onboardingAge"    column="Onboarding_age"    />
+        <result property="onboardingConstellation"    column="Onboarding_constellation"    />
+        <result property="onboardingEducation"    column="Onboarding_education"    />
+        <result property="onboardingMarrige"    column="Onboarding_marrige"    />
+        <result property="onboardingCertificate"    column="Onboarding_certificate"    />
+        <result property="onboardingLeve"    column="Onboarding_leve"    />
+    </resultMap>
+
+    <sql id="selectoutboardingVo">
+        select Onboarding_id, Onboarding_name, Onboarding_picture, date, Onboarding_position, Onboarding_age, Onboarding_constellation, Onboarding_education, Onboarding_marrige, Onboarding_certificate, Onboarding_leve from onboarding
+    </sql>
+
+    <select id="selectoutboardingList" parameterType="outboarding" resultMap="outboardingResult">
+        <include refid="selectoutboardingVo"/>
+        <where>  
+            <if test="onboardingName != null  and onboardingName != ''"> and Onboarding_name like concat('%', #{onboardingName}, '%')</if>
+            <if test="onboardingPicture != null  and onboardingPicture != ''"> and Onboarding_picture = #{onboardingPicture}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="onboardingPosition != null  and onboardingPosition != ''"> and Onboarding_position = #{onboardingPosition}</if>
+            <if test="onboardingAge != null "> and Onboarding_age = #{onboardingAge}</if>
+            <if test="onboardingConstellation != null  and onboardingConstellation != ''"> and Onboarding_constellation = #{onboardingConstellation}</if>
+            <if test="onboardingEducation != null  and onboardingEducation != ''"> and Onboarding_education = #{onboardingEducation}</if>
+            <if test="onboardingMarrige != null "> and Onboarding_marrige = #{onboardingMarrige}</if>
+            <if test="onboardingCertificate != null  and onboardingCertificate != ''"> and Onboarding_certificate = #{onboardingCertificate}</if>
+            <if test="onboardingLeve != null "> and Onboarding_leve = #{onboardingLeve}</if>
+        </where>
+    </select>
+    
+    <select id="selectoutboardingById" parameterType="Long" resultMap="outboardingResult">
+        <include refid="selectoutboardingVo"/>
+        where Onboarding_id = #{onboardingId}
+    </select>
+        
+    <insert id="insertoutboarding" parameterType="outboarding">
+        insert into onboarding
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="onboardingId != null">Onboarding_id,</if>
+            <if test="onboardingName != null and onboardingName != ''">Onboarding_name,</if>
+            <if test="onboardingPicture != null">Onboarding_picture,</if>
+            <if test="date != null">date,</if>
+            <if test="onboardingPosition != null">Onboarding_position,</if>
+            <if test="onboardingAge != null">Onboarding_age,</if>
+            <if test="onboardingConstellation != null">Onboarding_constellation,</if>
+            <if test="onboardingEducation != null">Onboarding_education,</if>
+            <if test="onboardingMarrige != null">Onboarding_marrige,</if>
+            <if test="onboardingCertificate != null">Onboarding_certificate,</if>
+            <if test="onboardingLeve != null">Onboarding_leve,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="onboardingId != null">#{onboardingId},</if>
+            <if test="onboardingName != null and onboardingName != ''">#{onboardingName},</if>
+            <if test="onboardingPicture != null">#{onboardingPicture},</if>
+            <if test="date != null">#{date},</if>
+            <if test="onboardingPosition != null">#{onboardingPosition},</if>
+            <if test="onboardingAge != null">#{onboardingAge},</if>
+            <if test="onboardingConstellation != null">#{onboardingConstellation},</if>
+            <if test="onboardingEducation != null">#{onboardingEducation},</if>
+            <if test="onboardingMarrige != null">#{onboardingMarrige},</if>
+            <if test="onboardingCertificate != null">#{onboardingCertificate},</if>
+            <if test="onboardingLeve != null">#{onboardingLeve},</if>
+         </trim>
+    </insert>
+
+    <update id="updateoutboarding" parameterType="outboarding">
+        update onboarding
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="onboardingName != null and onboardingName != ''">Onboarding_name = #{onboardingName},</if>
+            <if test="onboardingPicture != null">Onboarding_picture = #{onboardingPicture},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="onboardingPosition != null">Onboarding_position = #{onboardingPosition},</if>
+            <if test="onboardingAge != null">Onboarding_age = #{onboardingAge},</if>
+            <if test="onboardingConstellation != null">Onboarding_constellation = #{onboardingConstellation},</if>
+            <if test="onboardingEducation != null">Onboarding_education = #{onboardingEducation},</if>
+            <if test="onboardingMarrige != null">Onboarding_marrige = #{onboardingMarrige},</if>
+            <if test="onboardingCertificate != null">Onboarding_certificate = #{onboardingCertificate},</if>
+            <if test="onboardingLeve != null">Onboarding_leve = #{onboardingLeve},</if>
+        </trim>
+        where Onboarding_id = #{onboardingId}
+    </update>
+
+    <delete id="deleteoutboardingById" parameterType="Long">
+        delete from onboarding where Onboarding_id = #{onboardingId}
+    </delete>
+
+    <delete id="deleteoutboardingByIds" parameterType="String">
+        delete from onboarding where Onboarding_id in 
+        <foreach item="onboardingId" collection="array" open="(" separator="," close=")">
+            #{onboardingId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CollectionformMapper">
+    
+    <resultMap type="Collectionform" id="CollectionformResult">
+        <result property="contractId"    column="Contract_id"    />
+        <result property="customerName"    column="Customer_name"    />
+        <result property="Amount"    column="Amount"    />
+        <result property="Time"    column="Time"    />
+    </resultMap>
+
+    <sql id="selectCollectionformVo">
+        select Contract_id, Customer_name, Amount, Time from collectionform
+    </sql>
+
+    <select id="selectCollectionformList" parameterType="Collectionform" resultMap="CollectionformResult">
+        <include refid="selectCollectionformVo"/>
+        <where>  
+            <if test="contractId != null  and contractId != ''"> and Contract_id = #{contractId}</if>
+            <if test="customerName != null  and customerName != ''"> and Customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="Amount != null  and Amount != ''"> and Amount = #{Amount}</if>
+            <if test="Time != null "> and Time = #{Time}</if>
+        </where>
+    </select>
+    
+    <select id="selectCollectionformById" parameterType="String" resultMap="CollectionformResult">
+        <include refid="selectCollectionformVo"/>
+        where Contract_id = #{contractId}
+    </select>
+        
+    <insert id="insertCollectionform" parameterType="Collectionform">
+        insert into collectionform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">Contract_id,</if>
+            <if test="customerName != null">Customer_name,</if>
+            <if test="Amount != null">Amount,</if>
+            <if test="Time != null">Time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">#{contractId},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="Amount != null">#{Amount},</if>
+            <if test="Time != null">#{Time},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCollectionform" parameterType="Collectionform">
+        update collectionform
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null">Customer_name = #{customerName},</if>
+            <if test="Amount != null">Amount = #{Amount},</if>
+            <if test="Time != null">Time = #{Time},</if>
+        </trim>
+        where Contract_id = #{contractId}
+    </update>
+
+    <delete id="deleteCollectionformById" parameterType="String">
+        delete from collectionform where Contract_id = #{contractId}
+    </delete>
+
+    <delete id="deleteCollectionformByIds" parameterType="String">
+        delete from collectionform where Contract_id in 
+        <foreach item="contractId" collection="array" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </delete>
+
+</mapper>

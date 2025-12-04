@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.promotionReminderMapper">
+    
+    <resultMap type="promotionReminder" id="promotionReminderResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="beforeLevel"    column="beforeLevel"    />
+        <result property="nowLevel"    column="nowLevel"    />
+        <result property="date"    column="date"    />
+        <result property="time"    column="time"    />
+    </resultMap>
+
+    <sql id="selectpromotionReminderVo">
+        select id, name, beforeLevel, nowLevel, date, time from promotiontable
+    </sql>
+
+    <select id="selectpromotionReminderList" parameterType="promotionReminder" resultMap="promotionReminderResult">
+        <include refid="selectpromotionReminderVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="beforeLevel != null  and beforeLevel != ''"> and beforeLevel = #{beforeLevel}</if>
+            <if test="nowLevel != null  and nowLevel != ''"> and nowLevel = #{nowLevel}</if>
+            <if test="date != null "> and date = #{date}</if>
+        </where>
+    </select>
+    
+    <select id="selectpromotionReminderById" parameterType="Long" resultMap="promotionReminderResult">
+        <include refid="selectpromotionReminderVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertpromotionReminder" parameterType="promotionReminder">
+        insert into promotiontable
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="beforeLevel != null">beforeLevel,</if>
+            <if test="nowLevel != null">nowLevel,</if>
+            <if test="date != null">date,</if>
+            <if test="time != null">time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="beforeLevel != null">#{beforeLevel},</if>
+            <if test="nowLevel != null">#{nowLevel},</if>
+            <if test="date != null">#{date},</if>
+            <if test="time != null">#{time},</if>
+         </trim>
+    </insert>
+
+    <update id="updatepromotionReminder" parameterType="promotionReminder">
+        update promotiontable
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="beforeLevel != null">beforeLevel = #{beforeLevel},</if>
+            <if test="nowLevel != null">nowLevel = #{nowLevel},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="time != null">time = #{time},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletepromotionReminderById" parameterType="Long">
+        delete from promotiontable where id = #{id}
+    </delete>
+
+    <delete id="deletepromotionReminderByIds" parameterType="String">
+        delete from promotiontable where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BillingmessageMapper">
+    
+    <resultMap type="Billingmessage" id="BillingmessageResult">
+        <result property="id"    column="id"    />
+        <result property="conterman"    column="conterman"    />
+        <result property="customer"    column="customer"    />
+        <result property="level"    column="level"    />
+        <result property="date"    column="date"    />
+        <result property="content"    column="content"    />
+        <result property="ids"    column="ids"    />
+        <result property="ContractAmount"    column="ContractAmount"    />
+        <result property="AmountBefore"    column="AmountBefore"    />
+        <result property="AmountAfter"    column="AmountAfter"    />
+    </resultMap>
+
+    <sql id="selectBillingmessageVo">
+        select id, conterman, customer, level, date, content, ids, ContractAmount, AmountBefore, AmountAfter from billingmessage
+    </sql>
+
+    <select id="selectBillingmessageList" parameterType="Billingmessage" resultMap="BillingmessageResult">
+        <include refid="selectBillingmessageVo"/>
+        <where>  
+            <if test="conterman != null  and conterman != ''"> and conterman = #{conterman}</if>
+            <if test="customer != null  and customer != ''"> and customer = #{customer}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="ids != null "> and ids = #{ids}</if>
+            <if test="ContractAmount != null "> and ContractAmount = #{ContractAmount}</if>
+            <if test="AmountBefore != null "> and AmountBefore = #{AmountBefore}</if>
+            <if test="AmountAfter != null "> and AmountAfter = #{AmountAfter}</if>
+        </where>
+    </select>
+    
+    <select id="selectBillingmessageById" parameterType="Integer" resultMap="BillingmessageResult">
+        <include refid="selectBillingmessageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBillingmessage" parameterType="Billingmessage">
+        insert into billingmessage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="conterman != null">conterman,</if>
+            <if test="customer != null">customer,</if>
+            <if test="level != null">level,</if>
+            <if test="date != null">date,</if>
+            <if test="content != null">content,</if>
+            <if test="ids != null">ids,</if>
+            <if test="ContractAmount != null">ContractAmount,</if>
+            <if test="AmountBefore != null">AmountBefore,</if>
+            <if test="AmountAfter != null">AmountAfter,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="conterman != null">#{conterman},</if>
+            <if test="customer != null">#{customer},</if>
+            <if test="level != null">#{level},</if>
+            <if test="date != null">#{date},</if>
+            <if test="content != null">#{content},</if>
+            <if test="ids != null">#{ids},</if>
+            <if test="ContractAmount != null">#{ContractAmount},</if>
+            <if test="AmountBefore != null">#{AmountBefore},</if>
+            <if test="AmountAfter != null">#{AmountAfter},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBillingmessage" parameterType="Billingmessage">
+        update billingmessage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="conterman != null">conterman = #{conterman},</if>
+            <if test="customer != null">customer = #{customer},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="ids != null">ids = #{ids},</if>
+            <if test="ContractAmount != null">ContractAmount = #{ContractAmount},</if>
+            <if test="AmountBefore != null">AmountBefore = #{AmountBefore},</if>
+            <if test="AmountAfter != null">AmountAfter = #{AmountAfter},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBillingmessageById" parameterType="Integer">
+        delete from billingmessage where id = #{id}
+    </delete>
+
+    <delete id="deleteBillingmessageByIds" parameterType="String">
+        delete from billingmessage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

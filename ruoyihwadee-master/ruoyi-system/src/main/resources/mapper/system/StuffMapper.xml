@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StuffMapper">
+    
+    <resultMap type="Stuff" id="StuffResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="picture"    column="picture"    />
+        <result property="jobTitle"    column="jobTitle"    />
+        <result property="workContent"    column="workContent"    />
+        <result property="date"    column="date"    />
+        <result property="position"    column="position"    />
+    </resultMap>
+
+    <sql id="selectStuffVo">
+        select id, name, picture, jobTitle, workContent, date, position from stuff
+    </sql>
+
+    <select id="selectStuffList" parameterType="Stuff" resultMap="StuffResult">
+        <include refid="selectStuffVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="jobTitle != null  and jobTitle != ''"> and jobTitle = #{jobTitle}</if>
+            <if test="workContent != null  and workContent != ''"> and workContent = #{workContent}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="position != null  and position != ''"> and position = #{position}</if>
+        </where>
+    </select>
+    
+    <select id="selectStuffById" parameterType="Integer" resultMap="StuffResult">
+        <include refid="selectStuffVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertStuff" parameterType="Stuff">
+        insert into stuff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="picture != null">picture,</if>
+            <if test="jobTitle != null">jobTitle,</if>
+            <if test="workContent != null">workContent,</if>
+            <if test="date != null">date,</if>
+            <if test="position != null">position,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="jobTitle != null">#{jobTitle},</if>
+            <if test="workContent != null">#{workContent},</if>
+            <if test="date != null">#{date},</if>
+            <if test="position != null">#{position},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStuff" parameterType="Stuff">
+        update stuff
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="jobTitle != null">jobTitle = #{jobTitle},</if>
+            <if test="workContent != null">workContent = #{workContent},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="position != null">position = #{position},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStuffById" parameterType="Integer">
+        delete from stuff where id = #{id}
+    </delete>
+
+    <delete id="deleteStuffByIds" parameterType="String">
+        delete from stuff where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

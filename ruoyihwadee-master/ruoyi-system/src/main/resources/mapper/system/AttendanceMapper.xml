@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AttendanceMapper">
+    
+    <resultMap type="Attendance" id="AttendanceResult">
+        <result property="name"    column="name"    />
+        <result property="stuId"    column="stu_id"    />
+        <result property="isSign"    column="is_Sign"    />
+        <result property="day"    column="day"    />
+        <result property="month"    column="month"    />
+        <result property="year"    column="year"    />
+        <result property="date"    column="date"    />
+        <result property="isAsked"    column="is_Asked"    />
+        <result property="isLate"    column="is_Late"    />
+        <result property="gpsMsg"    column="gps_msg"    />
+    </resultMap>
+
+    <sql id="selectAttendanceVo">
+        select name, stu_id, is_Sign, day, month, year, date, is_Asked, is_Late, gps_msg from attendance
+    </sql>
+
+    <select id="selectAttendanceList" parameterType="Attendance" resultMap="AttendanceResult">
+        <include refid="selectAttendanceVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="stuId != null  and stuId != ''"> and stu_id = #{stuId}</if>
+            <if test="isSign != null "> and is_Sign = #{isSign}</if>
+            <if test="day != null "> and day = #{day}</if>
+            <if test="month != null "> and month = #{month}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="isAsked != null "> and is_Asked = #{isAsked}</if>
+            <if test="isLate != null "> and is_Late = #{isLate}</if>
+            <if test="gpsMsg != null  and gpsMsg != ''"> and gps_msg = #{gpsMsg}</if>
+        </where>
+    </select>
+    
+    <select id="selectAttendanceById" parameterType="String" resultMap="AttendanceResult">
+        <include refid="selectAttendanceVo"/>
+        where name = #{name}
+    </select>
+        
+    <insert id="insertAttendance" parameterType="Attendance">
+        insert into attendance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="stuId != null and stuId != ''">stu_id,</if>
+            <if test="isSign != null">is_Sign,</if>
+            <if test="day != null">day,</if>
+            <if test="month != null">month,</if>
+            <if test="year != null">year,</if>
+            <if test="date != null">date,</if>
+            <if test="isAsked != null">is_Asked,</if>
+            <if test="isLate != null">is_Late,</if>
+            <if test="gpsMsg != null">gps_msg,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="stuId != null and stuId != ''">#{stuId},</if>
+            <if test="isSign != null">#{isSign},</if>
+            <if test="day != null">#{day},</if>
+            <if test="month != null">#{month},</if>
+            <if test="year != null">#{year},</if>
+            <if test="date != null">#{date},</if>
+            <if test="isAsked != null">#{isAsked},</if>
+            <if test="isLate != null">#{isLate},</if>
+            <if test="gpsMsg != null">#{gpsMsg},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAttendance" parameterType="Attendance">
+        update attendance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+            <if test="isSign != null">is_Sign = #{isSign},</if>
+            <if test="day != null">day = #{day},</if>
+            <if test="month != null">month = #{month},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="isAsked != null">is_Asked = #{isAsked},</if>
+            <if test="isLate != null">is_Late = #{isLate},</if>
+            <if test="gpsMsg != null">gps_msg = #{gpsMsg},</if>
+        </trim>
+        where name = #{name}
+    </update>
+
+    <delete id="deleteAttendanceById" parameterType="String">
+        delete from attendance where name = #{name}
+    </delete>
+
+    <delete id="deleteAttendanceByIds" parameterType="String">
+        delete from attendance where name in 
+        <foreach item="name" collection="array" open="(" separator="," close=")">
+            #{name}
+        </foreach>
+    </delete>
+    <select id="getAttendanceList" resultMap="AttendanceResult">
+        <include refid="selectAttendanceVo"/>
+        ORDER BY date
+    </select>
+    <select id="getGroupAttendanceList" resultMap="AttendanceResult">
+        SELECT name, stu_id, SUM(is_Sign) as is_Sign, day, month, year, date, SUM(is_Asked) as is_Asked, SUM(is_Late) as is_Late, gps_msg
+        FROM attendance
+        GROUP BY date
+    </select>
+    <select id="getStuAttendanceList" resultMap="AttendanceResult">
+        SELECT name, stu_id, SUM(is_Sign) as is_Sign, day, month, year, date, SUM(is_Asked) as is_Asked, SUM(is_Late) as is_Late, gps_msg
+        FROM attendance
+        GROUP BY name
+        ORDER BY is_Sign DESC
+    </select>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.NurserymanageMapper">
+    
+    <resultMap type="Nurserymanage" id="NurserymanageResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="picture"    column="picture"    />
+        <result property="age"    column="age"    />
+        <result property="constellation"    column="constellation"    />
+        <result property="education"    column="education"    />
+        <result property="maritalStatus"    column="maritalStatus"    />
+        <result property="Certificate"    column="Certificate"    />
+        <result property="level"    column="level"    />
+        <result property="recommendedReason"    column="recommendedReason"    />
+        <result property="experience"    column="experience"    />
+        <result property="content"    column="content"    />
+        <result property="evaluate"    column="evaluate"    />
+    </resultMap>
+
+    <sql id="selectNurserymanageVo">
+        select id, name, picture, age, constellation, education, maritalStatus, Certificate, level, recommendedReason, experience, content, evaluate from nurserymanage
+    </sql>
+
+    <select id="selectNurserymanageList" parameterType="Nurserymanage" resultMap="NurserymanageResult">
+        <include refid="selectNurserymanageVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="age != null "> and age = #{age}</if>
+            <if test="constellation != null  and constellation != ''"> and constellation = #{constellation}</if>
+            <if test="education != null  and education != ''"> and education = #{education}</if>
+            <if test="maritalStatus != null  and maritalStatus != ''"> and maritalStatus = #{maritalStatus}</if>
+            <if test="Certificate != null  and Certificate != ''"> and Certificate = #{Certificate}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="recommendedReason != null  and recommendedReason != ''"> and recommendedReason = #{recommendedReason}</if>
+            <if test="experience != null  and experience != ''"> and experience = #{experience}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="evaluate != null  and evaluate != ''"> and evaluate = #{evaluate}</if>
+        </where>
+    </select>
+    
+    <select id="selectNurserymanageById" parameterType="Integer" resultMap="NurserymanageResult">
+        <include refid="selectNurserymanageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNurserymanage" parameterType="Nurserymanage">
+        insert into nurserymanage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="picture != null">picture,</if>
+            <if test="age != null">age,</if>
+            <if test="constellation != null">constellation,</if>
+            <if test="education != null">education,</if>
+            <if test="maritalStatus != null">maritalStatus,</if>
+            <if test="Certificate != null">Certificate,</if>
+            <if test="level != null">level,</if>
+            <if test="recommendedReason != null">recommendedReason,</if>
+            <if test="experience != null">experience,</if>
+            <if test="content != null">content,</if>
+            <if test="evaluate != null">evaluate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="age != null">#{age},</if>
+            <if test="constellation != null">#{constellation},</if>
+            <if test="education != null">#{education},</if>
+            <if test="maritalStatus != null">#{maritalStatus},</if>
+            <if test="Certificate != null">#{Certificate},</if>
+            <if test="level != null">#{level},</if>
+            <if test="recommendedReason != null">#{recommendedReason},</if>
+            <if test="experience != null">#{experience},</if>
+            <if test="content != null">#{content},</if>
+            <if test="evaluate != null">#{evaluate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNurserymanage" parameterType="Nurserymanage">
+        update nurserymanage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="constellation != null">constellation = #{constellation},</if>
+            <if test="education != null">education = #{education},</if>
+            <if test="maritalStatus != null">maritalStatus = #{maritalStatus},</if>
+            <if test="Certificate != null">Certificate = #{Certificate},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="recommendedReason != null">recommendedReason = #{recommendedReason},</if>
+            <if test="experience != null">experience = #{experience},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="evaluate != null">evaluate = #{evaluate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNurserymanageById" parameterType="Integer">
+        delete from nurserymanage where id = #{id}
+    </delete>
+
+    <delete id="deleteNurserymanageByIds" parameterType="String">
+        delete from nurserymanage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

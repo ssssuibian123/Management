@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BillingevaluationrecordsMapper">
+    
+    <resultMap type="Billingevaluationrecords" id="BillingevaluationrecordsResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="salary"    column="salary"    />
+        <result property="Contract"    column="Contract"    />
+        <result property="Content"    column="Content"    />
+        <result property="score"    column="score"    />
+    </resultMap>
+
+    <sql id="selectBillingevaluationrecordsVo">
+        select id, name, salary, Contract, Content, score from billingevaluationrecords
+    </sql>
+
+    <select id="selectBillingevaluationrecordsList" parameterType="Billingevaluationrecords" resultMap="BillingevaluationrecordsResult">
+        <include refid="selectBillingevaluationrecordsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="salary != null  and salary != ''"> and salary = #{salary}</if>
+            <if test="Contract != null  and Contract != ''"> and Contract = #{Contract}</if>
+            <if test="Content != null  and Content != ''"> and Content = #{Content}</if>
+            <if test="score != null "> and score = #{score}</if>
+        </where>
+    </select>
+    
+    <select id="selectBillingevaluationrecordsById" parameterType="Long" resultMap="BillingevaluationrecordsResult">
+        <include refid="selectBillingevaluationrecordsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBillingevaluationrecords" parameterType="Billingevaluationrecords">
+        insert into billingevaluationrecords
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="salary != null">salary,</if>
+            <if test="Contract != null">Contract,</if>
+            <if test="Content != null">Content,</if>
+            <if test="score != null">score,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="salary != null">#{salary},</if>
+            <if test="Contract != null">#{Contract},</if>
+            <if test="Content != null">#{Content},</if>
+            <if test="score != null">#{score},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBillingevaluationrecords" parameterType="Billingevaluationrecords">
+        update billingevaluationrecords
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="Contract != null">Contract = #{Contract},</if>
+            <if test="Content != null">Content = #{Content},</if>
+            <if test="score != null">score = #{score},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBillingevaluationrecordsById" parameterType="Long">
+        delete from billingevaluationrecords where id = #{id}
+    </delete>
+
+    <delete id="deleteBillingevaluationrecordsByIds" parameterType="String">
+        delete from billingevaluationrecords where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

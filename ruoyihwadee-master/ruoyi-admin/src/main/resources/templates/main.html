@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>若依介绍</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/style.min.css" th:href="@{/css/style.min.css}" rel="stylesheet"/>
+	<th:block th:include="include :: header('签到情况列表')" />
+</head>
+
+<body class="gray-bg">
+<div class="row  border-bottom white-bg dashboard-header">
+	<div>
+		<p style="margin:0pt; orphans:0; text-align:center; widows:0"><span
+				style="color:#ff0000; font-family:楷体; font-size:22pt">成都新华亿母婴</span><span
+				style="color:#ff0000; font-family:楷体; font-size:22pt">信息管理系统</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span
+				style="color:#ff0000; font-family:宋体; font-size:12pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span
+				style="color:#ff0000; font-family:宋体; font-size:12pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">1、客户关系管理</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">1)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">客户信息录入与分析</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">客户信息表内容：客户名称、客户来源、电话、预产期、需求日期、需求内容、等级、育婴顾问、育婴师。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">2)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">客户跟进记录</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">记录日期、联系人、与客户关系、沟通内容。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">3)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">客户关怀</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">节日祝福、育婴知识、节气养生</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:楷体; font-size:14pt">注：</span><span
+				style="font-family:楷体; font-size:12pt">以邮件和短信的方式发送。</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">2、服务管理</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">1)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">服务合同管理</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">合同信息表内容：客户名称、电话、预产期、服务日期、服务内容、等级、育婴师顾问、育婴师、合同金额</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">收款表：合同号、客户名称、金额、时间</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">2)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">服务资源管理</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师选择界面、育婴师简历界面、家政保洁员及老人护理选择界面</span><span
+				style="font-family:楷体; font-size:12pt">（本次开发不包含此两项模块以后可添加）</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">&#xa0;</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师选择界面中显示所有育婴师的照片、选择某育婴师后点击，进入此育婴师的简历界面。在此界面可进行育婴师的预约和安排的操作。</span>
+		</p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师简历内容：姓名、照片、年龄、星座、学历、婚姻状况、所有证书状况、级别、推荐理由；工作经历：时间段、工作内容、客户评价</span>
+		</p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">&#xa0;</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">家政保洁员及老人护理选择界面同育婴师界面内容。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:楷体; font-size:14pt">注：</span><span
+				style="font-family:楷体; font-size:12pt">工作信息根据合同自动更新；员工基本信息以时间及评级自动更新。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">3)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">服务过程管理</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">包含两大记录界面：客户回访记录、育婴师回访记录、结算与评价记录</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">客户回访记录：回访日期、联系人、沟通内容</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师回访记录：日期、沟通内容</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">结算与评价记录：姓名、工资、合同号、客户评价、服务评分</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:楷体; font-size:14pt">注：</span><span
+				style="font-family:楷体; font-size:12pt">以合同时间产生回访表</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">3、人力资源管理</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">1)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">人员信息管理</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">人员信息录入与查询表内容：</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span style="font-family:黑体; font-size:14pt">  
+            </span><span style="font-family:宋体; font-size:12pt">录入公司在职人员的信息，可根据业务需求查询某职员或某一部分职员的信息。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span style="font-family:宋体; font-size:12pt">   
+                职员信息：姓名、照片、职位、年龄、星座、学历、婚姻状况、所有证书状况、级别。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">2)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">人员变动管理（入职、晋升等）</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">入职界面、离职界面、育婴师晋升表界面</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">入职界面内容：姓名、照片、时间、职位、年龄、星座、学历、婚姻状况、所</span><span
+				style="font-family:宋体; font-size:12pt">有证书状况、级别。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">离职界面内容：姓名、照片、时间、职位、年龄、星座、学历、婚姻状况、所有证书状况、级别。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">晋升表内容：姓名、原等级、现等级、升级时间、评价时间</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">3)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">员工关怀</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">员工生日提醒表、员工晋升提醒界面</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:24pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">员工生日表：姓名、等级、居住地、时间</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:24pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">晋升表提醒表：姓名、等级、可升等级、可升级时间</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:24pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">4、管理报表</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">1)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">上岗人员:</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">上岗人员表内容：姓名、照片、职务、工作内容、时间、工作地点</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">2)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">育婴师工作状态表：</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:6pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师工作状态表界面、育婴师空闲表界面</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:6pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师工作状态表内容：姓名、照片、服务客户、服务地点、开始时间</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">结束时间；</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">育婴师空闲表内容：姓名、照片、等级、居住地、开始时间、空闲时间</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">3)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">来电来访情况</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">记录来电、来访客户的信息情况。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">表格内容：姓名、联系方式、客户住址、所需要求、需要时间、沟通内容、对接职员</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">4)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">接待情况</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span style="font-family:黑体; font-size:14pt">  
+            </span><span style="font-family:宋体; font-size:12pt">记录来访客户的信息情况，沟通内容。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:21pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">表格内容：姓名、联系方式、客户住址、所需要求、需要时间、沟通内容、对接职员</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">5)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">跟进情况</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">在来电、来访的客户中筛选出可确定商机的客户，加以记录、跟进。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">表格内容：客户姓名、联系方式、客户住址、所需要求、需要时间、跟进进度、对接职员</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:14pt">6)</span><span
+				style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;&#xa0;&#xa0; </span><span
+				style="font-family:黑体; font-size:14pt">销售情况</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span style="font-family:黑体; font-size:14pt">  
+            </span><span style="font-family:宋体; font-size:12pt">记录每天跟进客户的成单、继续跟进、交易关闭等情况。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; widows:0"><span style="font-family:宋体; font-size:12pt">   
+                表格内容：销售人员、客户姓名、联系方式、所需服务、预计收款金额、预计签约时间、项目状态、行动计划</span><span
+				style="font-family:宋体; font-size:12pt">              </span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">7)</span><span style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;
+            </span><span style="font-family:黑体; font-size:14pt">收款信息表：</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">记录已成单客户、预约客户的收款情况。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">表格内容：销售人员、客户姓名、客户级别、收款时间、服务内容、合同编号、合同金额、收款金额、尾款金额</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; text-indent:-21pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">8)</span><span style="font:7.0pt 'Times New Roman'">&#xa0;&#xa0;
+            </span><span style="font-family:黑体; font-size:14pt">后期维护客户表：</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">记录公司老客户信息，根据情况定期回访，加深有客户之间的关系。</span></p>
+		<p style="margin:0pt 0pt 0pt 21pt; orphans:0; text-align:justify; widows:0"><span
+				style="font-family:宋体; font-size:12pt">表格内容：客户名称、客户来源、电话、客户地址、合同时间、需求内容、等级、宝宝基本信息、育婴顾问、育婴师。</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:15.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; padding-left:11.75pt; text-align:justify; text-indent:-11.75pt; widows:0"><span
+				style="font-family:黑体; font-size:16pt">&#xa0;</span></p>
+		<p style="margin:0pt; orphans:0; text-align:justify; text-indent:24pt; widows:0"><span
+				style="font-family:宋体; font-size:12pt">&#xa0;</span></p>
+	</div>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: echarts-js" />
+
+</body>
+</html>

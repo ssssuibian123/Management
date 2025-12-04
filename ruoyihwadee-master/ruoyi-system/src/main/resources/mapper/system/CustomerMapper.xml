@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CustomerMapper">
+    
+    <resultMap type="Customer" id="CustomerResult">
+        <result property="custometId"    column="Customet_id"    />
+        <result property="customerName"    column="Customer_name"    />
+        <result property="custoemrPhone"    column="Custoemr_phone"    />
+        <result property="expectedData"    column="Expected_data"    />
+        <result property="damandData"    column="Damand_data"    />
+        <result property="Damand"    column="Damand"    />
+        <result property="customerLevel"    column="Customer_level"    />
+        <result property="CustomerSource"    column="CustomerSource"    />
+        <result property="Counterman"    column="Counterman"    />
+        <result property="nursery"    column="nursery"    />
+    </resultMap>
+
+    <sql id="selectCustomerVo">
+        select Customet_id, Customer_name, Custoemr_phone, Expected_data, Damand_data, Damand, Customer_level, CustomerSource, Counterman, nursery from customer
+    </sql>
+
+    <select id="selectCustomerList" parameterType="Customer" resultMap="CustomerResult">
+        <include refid="selectCustomerVo"/>
+        <where>  
+            <if test="customerName != null  and customerName != ''"> and Customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="custoemrPhone != null  and custoemrPhone != ''"> and Custoemr_phone = #{custoemrPhone}</if>
+            <if test="expectedData != null "> and Expected_data = #{expectedData}</if>
+            <if test="damandData != null "> and Damand_data = #{damandData}</if>
+            <if test="Damand != null  and Damand != ''"> and Damand = #{Damand}</if>
+            <if test="customerLevel != null "> and Customer_level = #{customerLevel}</if>
+            <if test="CustomerSource != null  and CustomerSource != ''"> and CustomerSource = #{CustomerSource}</if>
+            <if test="Counterman != null  and Counterman != ''"> and Counterman = #{Counterman}</if>
+            <if test="nursery != null  and nursery != ''"> and nursery = #{nursery}</if>
+        </where>
+    </select>
+    
+    <select id="selectCustomerById" parameterType="Long" resultMap="CustomerResult">
+        <include refid="selectCustomerVo"/>
+        where Customet_id = #{custometId}
+    </select>
+        
+    <insert id="insertCustomer" parameterType="Customer">
+        insert into customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="custometId != null">Customet_id,</if>
+            <if test="customerName != null and customerName != ''">Customer_name,</if>
+            <if test="custoemrPhone != null">Custoemr_phone,</if>
+            <if test="expectedData != null">Expected_data,</if>
+            <if test="damandData != null">Damand_data,</if>
+            <if test="Damand != null">Damand,</if>
+            <if test="customerLevel != null">Customer_level,</if>
+            <if test="CustomerSource != null">CustomerSource,</if>
+            <if test="Counterman != null">Counterman,</if>
+            <if test="nursery != null">nursery,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="custometId != null">#{custometId},</if>
+            <if test="customerName != null and customerName != ''">#{customerName},</if>
+            <if test="custoemrPhone != null">#{custoemrPhone},</if>
+            <if test="expectedData != null">#{expectedData},</if>
+            <if test="damandData != null">#{damandData},</if>
+            <if test="Damand != null">#{Damand},</if>
+            <if test="customerLevel != null">#{customerLevel},</if>
+            <if test="CustomerSource != null">#{CustomerSource},</if>
+            <if test="Counterman != null">#{Counterman},</if>
+            <if test="nursery != null">#{nursery},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCustomer" parameterType="Customer">
+        update customer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null and customerName != ''">Customer_name = #{customerName},</if>
+            <if test="custoemrPhone != null">Custoemr_phone = #{custoemrPhone},</if>
+            <if test="expectedData != null">Expected_data = #{expectedData},</if>
+            <if test="damandData != null">Damand_data = #{damandData},</if>
+            <if test="Damand != null">Damand = #{Damand},</if>
+            <if test="customerLevel != null">Customer_level = #{customerLevel},</if>
+            <if test="CustomerSource != null">CustomerSource = #{CustomerSource},</if>
+            <if test="Counterman != null">Counterman = #{Counterman},</if>
+            <if test="nursery != null">nursery = #{nursery},</if>
+        </trim>
+        where Customet_id = #{custometId}
+    </update>
+
+    <delete id="deleteCustomerById" parameterType="Long">
+        delete from customer where Customet_id = #{custometId}
+    </delete>
+
+    <delete id="deleteCustomerByIds" parameterType="String">
+        delete from customer where Customet_id in 
+        <foreach item="custometId" collection="array" open="(" separator="," close=")">
+            #{custometId}
+        </foreach>
+    </delete>
+
+</mapper>

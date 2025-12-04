@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ContractinformationMapper">
+    
+    <resultMap type="Contractinformation" id="ContractinformationResult">
+        <result property="id"    column="id"    />
+        <result property="customerName"    column="Customer_name"    />
+        <result property="customerPhone"    column="Customer_phone"    />
+        <result property="expectedData"    column="Expected_data"    />
+        <result property="damandData"    column="Damand_data"    />
+        <result property="Damand"    column="Damand"    />
+        <result property="customerLevel"    column="Customer_level"    />
+        <result property="countermanName"    column="Counterman_name"    />
+        <result property="nurseryName"    column="nursery_name"    />
+        <result property="Amount"    column="Amount"    />
+    </resultMap>
+
+    <sql id="selectContractinformationVo">
+        select id, Customer_name, Customer_phone, Expected_data, Damand_data, Damand, Customer_level, Counterman_name, nursery_name, Amount from contractinformation
+    </sql>
+
+    <select id="selectContractinformationList" parameterType="Contractinformation" resultMap="ContractinformationResult">
+        <include refid="selectContractinformationVo"/>
+        <where>  
+            <if test="customerName != null  and customerName != ''"> and Customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="customerPhone != null  and customerPhone != ''"> and Customer_phone = #{customerPhone}</if>
+            <if test="expectedData != null "> and Expected_data = #{expectedData}</if>
+            <if test="damandData != null "> and Damand_data = #{damandData}</if>
+            <if test="Damand != null  and Damand != ''"> and Damand = #{Damand}</if>
+            <if test="customerLevel != null  and customerLevel != ''"> and Customer_level = #{customerLevel}</if>
+            <if test="countermanName != null  and countermanName != ''"> and Counterman_name like concat('%', #{countermanName}, '%')</if>
+            <if test="nurseryName != null  and nurseryName != ''"> and nursery_name like concat('%', #{nurseryName}, '%')</if>
+            <if test="Amount != null "> and Amount = #{Amount}</if>
+        </where>
+    </select>
+    
+    <select id="selectContractinformationById" parameterType="Integer" resultMap="ContractinformationResult">
+        <include refid="selectContractinformationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertContractinformation" parameterType="Contractinformation">
+        insert into contractinformation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="customerName != null">Customer_name,</if>
+            <if test="customerPhone != null">Customer_phone,</if>
+            <if test="expectedData != null">Expected_data,</if>
+            <if test="damandData != null">Damand_data,</if>
+            <if test="Damand != null">Damand,</if>
+            <if test="customerLevel != null">Customer_level,</if>
+            <if test="countermanName != null">Counterman_name,</if>
+            <if test="nurseryName != null">nursery_name,</if>
+            <if test="Amount != null">Amount,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="customerPhone != null">#{customerPhone},</if>
+            <if test="expectedData != null">#{expectedData},</if>
+            <if test="damandData != null">#{damandData},</if>
+            <if test="Damand != null">#{Damand},</if>
+            <if test="customerLevel != null">#{customerLevel},</if>
+            <if test="countermanName != null">#{countermanName},</if>
+            <if test="nurseryName != null">#{nurseryName},</if>
+            <if test="Amount != null">#{Amount},</if>
+         </trim>
+    </insert>
+
+    <update id="updateContractinformation" parameterType="Contractinformation">
+        update contractinformation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="customerName != null">Customer_name = #{customerName},</if>
+            <if test="customerPhone != null">Customer_phone = #{customerPhone},</if>
+            <if test="expectedData != null">Expected_data = #{expectedData},</if>
+            <if test="damandData != null">Damand_data = #{damandData},</if>
+            <if test="Damand != null">Damand = #{Damand},</if>
+            <if test="customerLevel != null">Customer_level = #{customerLevel},</if>
+            <if test="countermanName != null">Counterman_name = #{countermanName},</if>
+            <if test="nurseryName != null">nursery_name = #{nurseryName},</if>
+            <if test="Amount != null">Amount = #{Amount},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteContractinformationById" parameterType="Integer">
+        delete from contractinformation where id = #{id}
+    </delete>
+
+    <delete id="deleteContractinformationByIds" parameterType="String">
+        delete from contractinformation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

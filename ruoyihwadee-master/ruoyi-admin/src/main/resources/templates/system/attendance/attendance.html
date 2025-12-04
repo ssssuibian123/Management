@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('签到情况列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>名字：</label>
+                                <input type="text" name="name"/>
+                            </li>
+                            <li>
+                                <label>学生学号：</label>
+                                <input type="text" name="stuId"/>
+                            </li>
+                            <li>
+                                <label>是否签到：</label>
+                                <input type="text" name="isSign"/>
+                            </li>
+                            <li>
+                                <label>日：</label>
+                                <input type="text" name="day"/>
+                            </li>
+                            <li>
+                                <label>月：</label>
+                                <input type="text" name="month"/>
+                            </li>
+                            <li>
+                                <label>年：</label>
+                                <input type="text" name="year"/>
+                            </li>
+                            <li>
+                                <label>日期：</label>
+                                <input type="text" class="time-input" placeholder="请选择日期" name="date"/>
+                            </li>
+                            <li>
+                                <label>是否请假：</label>
+                                <input type="text" name="isAsked"/>
+                            </li>
+                            <li>
+                                <label>是否迟到：</label>
+                                <input type="text" name="isLate"/>
+                            </li>
+                            <li>
+                                <label>位置信息：</label>
+                                <input type="text" name="gpsMsg"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:attendance:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:attendance:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:attendance:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:attendance:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('system:attendance:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('system:attendance:remove')}]];
+        var prefix = ctx + "system/attendance";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "签到情况",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'name',
+                    title: '名字'
+                },
+                {
+                    field: 'stuId',
+                    title: '学生学号'
+                },
+                {
+                    field: 'isSign',
+                    title: '是否签到'
+                },
+                {
+                    field: 'day',
+                    title: '日'
+                },
+                {
+                    field: 'month',
+                    title: '月'
+                },
+                {
+                    field: 'year',
+                    title: '年'
+                },
+                {
+                    field: 'date',
+                    title: '日期'
+                },
+                {
+                    field: 'isAsked',
+                    title: '是否请假'
+                },
+                {
+                    field: 'isLate',
+                    title: '是否迟到'
+                },
+                {
+                    field: 'gpsMsg',
+                    title: '位置信息'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.name + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.name + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

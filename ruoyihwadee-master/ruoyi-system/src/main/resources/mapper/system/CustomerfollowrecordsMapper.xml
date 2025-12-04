@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CustomerfollowrecordsMapper">
+    
+    <resultMap type="Customerfollowrecords" id="CustomerfollowrecordsResult">
+        <result property="id"    column="id"    />
+        <result property="waiterId"    column="Waiter_id"    />
+        <result property="waiterName"    column="Waiter_name"    />
+        <result property="customerId"    column="Customer_id"    />
+        <result property="customerName"    column="Customer_name"    />
+        <result property="RecordsData"    column="RecordsData"    />
+        <result property="Relationship"    column="Relationship"    />
+        <result property="communicationContent"    column="Communication_content"    />
+    </resultMap>
+
+    <sql id="selectCustomerfollowrecordsVo">
+        select id, Waiter_id, Waiter_name, Customer_id, Customer_name, RecordsData, Relationship, Communication_content from customerfollowrecords
+    </sql>
+
+    <select id="selectCustomerfollowrecordsList" parameterType="Customerfollowrecords" resultMap="CustomerfollowrecordsResult">
+        <include refid="selectCustomerfollowrecordsVo"/>
+        <where>  
+            <if test="waiterId != null "> and Waiter_id = #{waiterId}</if>
+            <if test="waiterName != null  and waiterName != ''"> and Waiter_name like concat('%', #{waiterName}, '%')</if>
+            <if test="customerId != null "> and Customer_id = #{customerId}</if>
+            <if test="customerName != null  and customerName != ''"> and Customer_name like concat('%', #{customerName}, '%')</if>
+            <if test="RecordsData != null "> and RecordsData = #{RecordsData}</if>
+            <if test="Relationship != null  and Relationship != ''"> and Relationship = #{Relationship}</if>
+            <if test="communicationContent != null  and communicationContent != ''"> and Communication_content = #{communicationContent}</if>
+        </where>
+    </select>
+    
+    <select id="selectCustomerfollowrecordsById" parameterType="Long" resultMap="CustomerfollowrecordsResult">
+        <include refid="selectCustomerfollowrecordsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCustomerfollowrecords" parameterType="Customerfollowrecords">
+        insert into customerfollowrecords
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="waiterId != null">Waiter_id,</if>
+            <if test="waiterName != null">Waiter_name,</if>
+            <if test="customerId != null">Customer_id,</if>
+            <if test="customerName != null">Customer_name,</if>
+            <if test="RecordsData != null">RecordsData,</if>
+            <if test="Relationship != null">Relationship,</if>
+            <if test="communicationContent != null">Communication_content,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="waiterId != null">#{waiterId},</if>
+            <if test="waiterName != null">#{waiterName},</if>
+            <if test="customerId != null">#{customerId},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="RecordsData != null">#{RecordsData},</if>
+            <if test="Relationship != null">#{Relationship},</if>
+            <if test="communicationContent != null">#{communicationContent},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCustomerfollowrecords" parameterType="Customerfollowrecords">
+        update customerfollowrecords
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="waiterId != null">Waiter_id = #{waiterId},</if>
+            <if test="waiterName != null">Waiter_name = #{waiterName},</if>
+            <if test="customerId != null">Customer_id = #{customerId},</if>
+            <if test="customerName != null">Customer_name = #{customerName},</if>
+            <if test="RecordsData != null">RecordsData = #{RecordsData},</if>
+            <if test="Relationship != null">Relationship = #{Relationship},</if>
+            <if test="communicationContent != null">Communication_content = #{communicationContent},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerfollowrecordsById" parameterType="Long">
+        delete from customerfollowrecords where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerfollowrecordsByIds" parameterType="String">
+        delete from customerfollowrecords where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

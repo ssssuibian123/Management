@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SalesMapper">
+    
+    <resultMap type="Sales" id="SalesResult">
+        <result property="id"    column="id"    />
+        <result property="conterman"    column="conterman"    />
+        <result property="customer"    column="customer"    />
+        <result property="phone"    column="phone"    />
+        <result property="CustomerRequire"    column="CustomerRequire"    />
+        <result property="payment"    column="payment"    />
+        <result property="signingTime"    column="signingTime"    />
+        <result property="state"    column="state"    />
+        <result property="actionPlan"    column="actionPlan"    />
+    </resultMap>
+
+    <sql id="selectSalesVo">
+        select id, conterman, customer, phone, CustomerRequire, payment, signingTime, state, actionPlan from sales
+    </sql>
+
+    <select id="selectSalesList" parameterType="Sales" resultMap="SalesResult">
+        <include refid="selectSalesVo"/>
+        <where>  
+            <if test="conterman != null  and conterman != ''"> and conterman = #{conterman}</if>
+            <if test="customer != null  and customer != ''"> and customer = #{customer}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="CustomerRequire != null  and CustomerRequire != ''"> and CustomerRequire = #{CustomerRequire}</if>
+            <if test="payment != null "> and payment = #{payment}</if>
+            <if test="signingTime != null "> and signingTime = #{signingTime}</if>
+            <if test="state != null  and state != ''"> and state = #{state}</if>
+            <if test="actionPlan != null  and actionPlan != ''"> and actionPlan = #{actionPlan}</if>
+        </where>
+    </select>
+    
+    <select id="selectSalesById" parameterType="Integer" resultMap="SalesResult">
+        <include refid="selectSalesVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSales" parameterType="Sales">
+        insert into sales
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="conterman != null">conterman,</if>
+            <if test="customer != null">customer,</if>
+            <if test="phone != null">phone,</if>
+            <if test="CustomerRequire != null">CustomerRequire,</if>
+            <if test="payment != null">payment,</if>
+            <if test="signingTime != null">signingTime,</if>
+            <if test="state != null">state,</if>
+            <if test="actionPlan != null">actionPlan,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="conterman != null">#{conterman},</if>
+            <if test="customer != null">#{customer},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="CustomerRequire != null">#{CustomerRequire},</if>
+            <if test="payment != null">#{payment},</if>
+            <if test="signingTime != null">#{signingTime},</if>
+            <if test="state != null">#{state},</if>
+            <if test="actionPlan != null">#{actionPlan},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSales" parameterType="Sales">
+        update sales
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="conterman != null">conterman = #{conterman},</if>
+            <if test="customer != null">customer = #{customer},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="CustomerRequire != null">CustomerRequire = #{CustomerRequire},</if>
+            <if test="payment != null">payment = #{payment},</if>
+            <if test="signingTime != null">signingTime = #{signingTime},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="actionPlan != null">actionPlan = #{actionPlan},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSalesById" parameterType="Integer">
+        delete from sales where id = #{id}
+    </delete>
+
+    <delete id="deleteSalesByIds" parameterType="String">
+        delete from sales where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

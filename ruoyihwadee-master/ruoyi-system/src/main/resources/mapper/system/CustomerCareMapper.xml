@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CustomerCareMapper">
+    
+    <resultMap type="CustomerCare" id="CustomerCareResult">
+        <result property="id"    column="id"    />
+        <result property="stuId"    column="stu_id"    />
+        <result property="name"    column="name"    />
+    </resultMap>
+
+    <sql id="selectCustomerCareVo">
+        select id, stu_id, name from CustomerCare
+    </sql>
+
+    <select id="selectCustomerCareList" parameterType="CustomerCare" resultMap="CustomerCareResult">
+        <include refid="selectCustomerCareVo"/>
+        <where>  
+            <if test="stuId != null  and stuId != ''"> and stu_id = #{stuId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectCustomerCareById" parameterType="Long" resultMap="CustomerCareResult">
+        <include refid="selectCustomerCareVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCustomerCare" parameterType="CustomerCare">
+        insert into CustomerCare
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="stuId != null and stuId != ''">stu_id,</if>
+            <if test="name != null">name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="stuId != null and stuId != ''">#{stuId},</if>
+            <if test="name != null">#{name},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCustomerCare" parameterType="CustomerCare">
+        update CustomerCare
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+            <if test="name != null">name = #{name},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCustomerCareById" parameterType="Long">
+        delete from CustomerCare where id = #{id}
+    </delete>
+
+    <delete id="deleteCustomerCareByIds" parameterType="String">
+        delete from CustomerCare where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

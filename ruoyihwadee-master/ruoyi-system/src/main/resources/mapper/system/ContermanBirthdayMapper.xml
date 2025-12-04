@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ContermanBirthdayMapper">
+    
+    <resultMap type="ContermanBirthday" id="ContermanBirthdayResult">
+        <result property="contermanId"    column="Conterman_id"    />
+        <result property="contermanName"    column="Conterman_name"    />
+        <result property="contermanPicture"    column="Conterman_picture"    />
+        <result property="contermanAge"    column="Conterman_age"    />
+        <result property="contermanPosition"    column="Conterman_position"    />
+        <result property="contermanLeve"    column="Conterman_leve"    />
+        <result property="contermanConstellation"    column="Conterman_constellation"    />
+        <result property="contermanEducation"    column="Conterman_education"    />
+        <result property="contermanMarrige"    column="Conterman_marrige"    />
+        <result property="contermanCertificate"    column="Conterman_certificate"    />
+        <result property="contermanBirthday"    column="Conterman_Birthday"    />
+        <result property="contermanPlace"    column="Conterman_place"    />
+    </resultMap>
+
+    <sql id="selectContermanBirthdayVo">
+        select Conterman_id, Conterman_name, Conterman_picture, Conterman_age, Conterman_position, Conterman_leve, Conterman_constellation, Conterman_education, Conterman_marrige, Conterman_certificate, Conterman_Birthday, Conterman_place from conterman
+    </sql>
+
+    <select id="selectContermanBirthdayList" parameterType="ContermanBirthday" resultMap="ContermanBirthdayResult">
+        <include refid="selectContermanBirthdayVo"/>
+        <where>  
+            <if test="contermanName != null  and contermanName != ''"> and Conterman_name like concat('%', #{contermanName}, '%')</if>
+            <if test="contermanLeve != null "> and Conterman_leve = #{contermanLeve}</if>
+            <if test="contermanBirthday != null "> and Conterman_Birthday = #{contermanBirthday}</if>
+            <if test="contermanPlace != null  and contermanPlace != ''"> and Conterman_place = #{contermanPlace}</if>
+        </where>
+    </select>
+    
+    <select id="selectContermanBirthdayById" parameterType="Long" resultMap="ContermanBirthdayResult">
+        <include refid="selectContermanBirthdayVo"/>
+        where Conterman_id = #{contermanId}
+    </select>
+        
+    <insert id="insertContermanBirthday" parameterType="ContermanBirthday">
+        insert into conterman
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contermanId != null">Conterman_id,</if>
+            <if test="contermanName != null and contermanName != ''">Conterman_name,</if>
+            <if test="contermanPicture != null">Conterman_picture,</if>
+            <if test="contermanAge != null">Conterman_age,</if>
+            <if test="contermanPosition != null">Conterman_position,</if>
+            <if test="contermanLeve != null">Conterman_leve,</if>
+            <if test="contermanConstellation != null">Conterman_constellation,</if>
+            <if test="contermanEducation != null">Conterman_education,</if>
+            <if test="contermanMarrige != null">Conterman_marrige,</if>
+            <if test="contermanCertificate != null">Conterman_certificate,</if>
+            <if test="contermanBirthday != null">Conterman_Birthday,</if>
+            <if test="contermanPlace != null">Conterman_place,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contermanId != null">#{contermanId},</if>
+            <if test="contermanName != null and contermanName != ''">#{contermanName},</if>
+            <if test="contermanPicture != null">#{contermanPicture},</if>
+            <if test="contermanAge != null">#{contermanAge},</if>
+            <if test="contermanPosition != null">#{contermanPosition},</if>
+            <if test="contermanLeve != null">#{contermanLeve},</if>
+            <if test="contermanConstellation != null">#{contermanConstellation},</if>
+            <if test="contermanEducation != null">#{contermanEducation},</if>
+            <if test="contermanMarrige != null">#{contermanMarrige},</if>
+            <if test="contermanCertificate != null">#{contermanCertificate},</if>
+            <if test="contermanBirthday != null">#{contermanBirthday},</if>
+            <if test="contermanPlace != null">#{contermanPlace},</if>
+         </trim>
+    </insert>
+
+    <update id="updateContermanBirthday" parameterType="ContermanBirthday">
+        update conterman
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="contermanName != null and contermanName != ''">Conterman_name = #{contermanName},</if>
+            <if test="contermanPicture != null">Conterman_picture = #{contermanPicture},</if>
+            <if test="contermanAge != null">Conterman_age = #{contermanAge},</if>
+            <if test="contermanPosition != null">Conterman_position = #{contermanPosition},</if>
+            <if test="contermanLeve != null">Conterman_leve = #{contermanLeve},</if>
+            <if test="contermanConstellation != null">Conterman_constellation = #{contermanConstellation},</if>
+            <if test="contermanEducation != null">Conterman_education = #{contermanEducation},</if>
+            <if test="contermanMarrige != null">Conterman_marrige = #{contermanMarrige},</if>
+            <if test="contermanCertificate != null">Conterman_certificate = #{contermanCertificate},</if>
+            <if test="contermanBirthday != null">Conterman_Birthday = #{contermanBirthday},</if>
+            <if test="contermanPlace != null">Conterman_place = #{contermanPlace},</if>
+        </trim>
+        where Conterman_id = #{contermanId}
+    </update>
+
+    <delete id="deleteContermanBirthdayById" parameterType="Long">
+        delete from conterman where Conterman_id = #{contermanId}
+    </delete>
+
+    <delete id="deleteContermanBirthdayByIds" parameterType="String">
+        delete from conterman where Conterman_id in 
+        <foreach item="contermanId" collection="array" open="(" separator="," close=")">
+            #{contermanId}
+        </foreach>
+    </delete>
+
+</mapper>

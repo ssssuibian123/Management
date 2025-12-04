@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ReceptionSituationMapper">
+    
+    <resultMap type="ReceptionSituation" id="ReceptionSituationResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="CustomerRequire"    column="CustomerRequire"    />
+        <result property="requireTime"    column="requireTime"    />
+        <result property="content"    column="content"    />
+        <result property="staff"    column="staff"    />
+    </resultMap>
+
+    <sql id="selectReceptionSituationVo">
+        select id, name, phone, address, CustomerRequire, requireTime, content, staff from receptionsituation
+    </sql>
+
+    <select id="selectReceptionSituationList" parameterType="ReceptionSituation" resultMap="ReceptionSituationResult">
+        <include refid="selectReceptionSituationVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="CustomerRequire != null  and CustomerRequire != ''"> and CustomerRequire = #{CustomerRequire}</if>
+            <if test="requireTime != null "> and requireTime = #{requireTime}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="staff != null  and staff != ''"> and staff = #{staff}</if>
+        </where>
+    </select>
+    
+    <select id="selectReceptionSituationById" parameterType="Integer" resultMap="ReceptionSituationResult">
+        <include refid="selectReceptionSituationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertReceptionSituation" parameterType="ReceptionSituation">
+        insert into receptionsituation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="CustomerRequire != null">CustomerRequire,</if>
+            <if test="requireTime != null">requireTime,</if>
+            <if test="content != null">content,</if>
+            <if test="staff != null">staff,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="address != null">#{address},</if>
+            <if test="CustomerRequire != null">#{CustomerRequire},</if>
+            <if test="requireTime != null">#{requireTime},</if>
+            <if test="content != null">#{content},</if>
+            <if test="staff != null">#{staff},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReceptionSituation" parameterType="ReceptionSituation">
+        update receptionsituation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="CustomerRequire != null">CustomerRequire = #{CustomerRequire},</if>
+            <if test="requireTime != null">requireTime = #{requireTime},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="staff != null">staff = #{staff},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReceptionSituationById" parameterType="Integer">
+        delete from receptionsituation where id = #{id}
+    </delete>
+
+    <delete id="deleteReceptionSituationByIds" parameterType="String">
+        delete from receptionsituation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

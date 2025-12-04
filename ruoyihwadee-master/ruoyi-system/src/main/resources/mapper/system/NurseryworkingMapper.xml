@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.NurseryworkingMapper">
+    
+    <resultMap type="Nurseryworking" id="NurseryworkingResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="picture"    column="picture"    />
+        <result property="customerName"    column="customerName"    />
+        <result property="serverPosition"    column="serverPosition"    />
+        <result property="beginTime"    column="beginTime"    />
+        <result property="endTime"    column="endTime"    />
+    </resultMap>
+
+    <sql id="selectNurseryworkingVo">
+        select id, name, picture, customerName, serverPosition, beginTime, endTime from nurseryworking
+    </sql>
+
+    <select id="selectNurseryworkingList" parameterType="Nurseryworking" resultMap="NurseryworkingResult">
+        <include refid="selectNurseryworkingVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="customerName != null  and customerName != ''"> and customerName like concat('%', #{customerName}, '%')</if>
+            <if test="serverPosition != null  and serverPosition != ''"> and serverPosition = #{serverPosition}</if>
+            <if test="beginTime != null "> and beginTime = #{beginTime}</if>
+            <if test="endTime != null "> and endTime = #{endTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectNurseryworkingById" parameterType="Integer" resultMap="NurseryworkingResult">
+        <include refid="selectNurseryworkingVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNurseryworking" parameterType="Nurseryworking">
+        insert into nurseryworking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="picture != null">picture,</if>
+            <if test="customerName != null">customerName,</if>
+            <if test="serverPosition != null">serverPosition,</if>
+            <if test="beginTime != null">beginTime,</if>
+            <if test="endTime != null">endTime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="customerName != null">#{customerName},</if>
+            <if test="serverPosition != null">#{serverPosition},</if>
+            <if test="beginTime != null">#{beginTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNurseryworking" parameterType="Nurseryworking">
+        update nurseryworking
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="customerName != null">customerName = #{customerName},</if>
+            <if test="serverPosition != null">serverPosition = #{serverPosition},</if>
+            <if test="beginTime != null">beginTime = #{beginTime},</if>
+            <if test="endTime != null">endTime = #{endTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNurseryworkingById" parameterType="Integer">
+        delete from nurseryworking where id = #{id}
+    </delete>
+
+    <delete id="deleteNurseryworkingByIds" parameterType="String">
+        delete from nurseryworking where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
